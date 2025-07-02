@@ -3,7 +3,7 @@
   Função para obter diagnóstico de personalidade via GET
   --------------------------------------------------------------------------------------
 */
-const newDiagnose = async (event) => {
+const newPersonalityTrait = async (event) => {
   event.preventDefault();
 
   let inputName = document.getElementById("newName").value;
@@ -41,7 +41,7 @@ const newDiagnose = async (event) => {
       post_frequency: inputPostFrequency
     });
 
-    const url = `http://127.0.0.1:5000/diagnose?${params.toString()}`;
+    const url = `http://127.0.0.1:5000/personality_trait?${params.toString()}`;
     
     // Faz a requisição GET para obter o diagnóstico
     const response = await fetch(url, {
