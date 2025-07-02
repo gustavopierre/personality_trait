@@ -6,7 +6,7 @@
 const newDiagnose = async (event) => {
   event.preventDefault();
 
-  let inputPatient = document.getElementById("newInput").value;
+  let inputName = document.getElementById("newName").value;
   let inputTimeSpentAlone = document.getElementById("newTimeSpentAlone").value;
   let inputStageFear = document.getElementById("newStageFear").value;
   let inputSocialEventAttendance = document.getElementById("newSocialEventAttendance").value;
@@ -16,7 +16,7 @@ const newDiagnose = async (event) => {
   let inputPostFrequency = document.getElementById("newPostFrequency").value;
 
   // Validações básicas
-  if (inputPatient === '') {
+  if (inputName === '') {
     alert("The 'Name' field cannot be empty!");
     return;
   }
