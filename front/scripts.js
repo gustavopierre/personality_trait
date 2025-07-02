@@ -17,7 +17,7 @@ const newDiagnose = async (event) => {
 
   // Validações básicas
   if (inputPatient === '') {
-    alert("The 'Patient' field cannot be empty!");
+    alert("The 'Name' field cannot be empty!");
     return;
   }
   
@@ -55,7 +55,7 @@ const newDiagnose = async (event) => {
     alert(`Diagnose to ${inputPatient}: ${diagnostico}`);
     
     // Limpa o formulário após o diagnóstico
-    document.getElementById("newInput").value = "";
+    document.getElementById("newName").value = "";
     document.getElementById("newTimeSpentAlone").value = "";
     document.getElementById("newStageFear").value = "";
     document.getElementById("newSocialEventAttendance").value = "";
