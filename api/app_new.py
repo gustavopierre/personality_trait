@@ -42,7 +42,7 @@ def docs():
     return redirect("/openapi")
 
 # Route for forecast of personality traits
-@app.get(
+@app.post(
     "/personality_trait", 
     tags=[personality_trait_tag],
     responses={
@@ -51,7 +51,7 @@ def docs():
         "500": ErrorResponseSchema,
     },
 )
-def get_personality_trait(form: PersonalityTraitSchema):
+def predict_personality_trait(form: PersonalityTraitSchema):
     """
     Forecasts personality traits based on user input.
 
@@ -106,4 +106,5 @@ def get_personality_trait(form: PersonalityTraitSchema):
         logger.error(f"Error during prediction: {str(e)}")
         return ErrorResponseSchema(message=f"Error during prediction: {str(e)}"), 500
 
-
+if __name__ == "__main__":
+    app.run(debug=True, host="0.0.0.0", port=5000)

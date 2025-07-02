@@ -21,4 +21,10 @@ class PersonalityTraitResponseSchema(BaseModel):
     """
     name: str
     personalityTrait: int
-    
+
+class ErrorResponseSchema(BaseModel):
+    """
+    Schema for error responses.
+    """
+    message: str
+

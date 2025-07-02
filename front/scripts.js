@@ -31,14 +31,14 @@ const newPersonalityTrait = async (event) => {
   try {
     // Monta a URL com os parâmetros para a requisição GET
     const params = new URLSearchParams({
-      name: inputPatient,
-      time_spent_alone: inputTimeSpentAlone,
-      stage_fear: inputStageFear,
-      social_event_attendance: inputSocialEventAttendance,
-      going_outside: inputGoingOutside,
-      drained_after_socializing: inputDrainedAfterSocializing,
-      friends_circle_size: inputFriendsCircleSize,
-      post_frequency: inputPostFrequency
+      name: inputName,
+      timeSpentAlone: inputTimeSpentAlone,
+      stageFear: inputStageFear,
+      socialEventAttendance: inputSocialEventAttendance,
+      goingOutside: inputGoingOutside,
+      drainedAfterSocializing: inputDrainedAfterSocializing,
+      friendsCircleSize: inputFriendsCircleSize,
+      postFrequency: inputPostFrequency
     });
 
     const url = `http://127.0.0.1:5000/personality_trait?${params.toString()}`;
@@ -51,8 +51,8 @@ const newPersonalityTrait = async (event) => {
     const result = await response.json();
     
     // Mostra o resultado do diagnóstico
-    const diagnostico = result.outcome === 1 ? "EXTROVERT" : "INTROVERT";
-    alert(`Diagnose to ${inputPatient}: ${diagnostico}`);
+    const diagnostico = result.personalityTrait === 1 ? "EXTROVERT" : "INTROVERT";
+    alert(`Diagnose to ${inputName}: ${diagnostico}`);
     
     // Limpa o formulário após o diagnóstico
     document.getElementById("newName").value = "";

@@ -21,7 +21,7 @@ home_tag = Tag(
     description="Selection of the documentation: Swagger, Redoc or Rapidoc",
 )
 personality_trait_tag = Tag(
-    name="Personality Trait", 
+    name="Personality Trait",
     description="Forecasting personality traits based on user input",
 )
 
@@ -80,14 +80,14 @@ def get_personality_trait(form: PersonalityTraitSchema):
             friendsCircleSize, 
             postFrequency
         ]).reshape(1, -1)
-        
         # Log the input data for prediction
         logger.info(f"Input data for prediction: {X_input}")
         
         # Load the pre-trained model pipeline
+        # Log the pipeline loading
         logger.info("Loading the personality trait prediction pipeline.")
         
-        model_path = "./machinelearning/models/et_personality_trait_pipeline.pkl"
+        model_path = ".machinelearning/models/et_personality_trait_pipeline.pkl"
         with open(model_path, 'rb') as file:
             pipeline = pickle.load(file)
             
@@ -95,15 +95,7 @@ def get_personality_trait(form: PersonalityTraitSchema):
         prediction = int(pipeline.predict(X_input)[0])
                
         # Log the prediction result
-        logger.info(f"Prediction result: {prediction}")
+        logger.info(f"Prediction result: {prediction]}")
         
         return PersonalityTraitResponseSchema(
-            name=name,
-            personalityTrait=prediction
-        )
-        
-    except Exception as e:
-        logger.error(f"Error during prediction: {str(e)}")
-        return ErrorResponseSchema(message=f"Error during prediction: {str(e)}"), 500
-
-
+    
