@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <title>Personality Trait</title>
+    <link rel="icon" href="img/logo.png" type="image/png">
+</head>
+
+<body>
+     <!-- Cabeçalho de informações do sistema -->
+    <header>
+        <div class="title">
+            <h2>Welcome to Personality Trait</h2>
+            <br>
+            <p> This system was developed to assist in the diagnosis of personality traits.</p>
+            <p>To use it, simply fill in the fields below with the patient's data and click "Diagnose".</p>
+            
+        </div>
+    </header>
+
+     <!-- Opções para adicionar um novo item -->
+     
+    <section class="newItem">
+        <input type="text" id="newInput" placeholder="Name">
+        <input type="text" id="newTimeSpentAlone" placeholder="Time Spent Alone">
+        <input type="text" id="newStageFear" placeholder="Stage Fear">
+        <input type="text" id="newSocialEventAttendance" placeholder="Social Event Attendance">
+        <input type="text" id="newGoingOutside" placeholder="Going Outside">
+        <input type="text" id="newDrainedAfterSocializing" placeholder="Drained After Socializing">
+        <input type="text" id="newFriendsCircleSize" placeholder="Friends Circle Size">
+        <input type="text" id="newPostFrequency" placeholder="Post Frequency">
+        <button type="button" onclick="newDiagnose(event)" class="addBtn">Diagnose</button>
+    </section> 
+
+    <script src="scripts.js"></script>
+</body>
+
+</html>
+
+
