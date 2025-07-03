@@ -1,1 +1,1 @@
-from .personality_trait_schema import PersonalityTraitSchema, PersonalityTraitResponseSchema, ErrorResponseSchema
+from .personality_trait_schema import PersonalityInputSchema, PersonalityTraitResponseSchema, ErrorResponseSchema
