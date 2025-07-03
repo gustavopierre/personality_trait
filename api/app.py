@@ -78,7 +78,7 @@ def calculatePrediction(
 
 # Route for the personality trait prediction
 @app.post("/predict", tags=[personality_trait_tag])
-def predict_personality(body: PredictInputSchema):
+def predict_personality(body: PersonalityInputSchema):
     """
     Predicts the personality trait based on the input data.
 
@@ -112,9 +112,10 @@ def predict_personality(body: PredictInputSchema):
         # Log the prediction result
         logger.info(f"Prediction result: {prediction}")
         
-        return PersonalityTraitResponseSchema(
-            personalityTrait=prediction
-        )
+        # return PersonalityTraitResponseSchema(
+        #     prediction=prediction
+        # )
+        return {"prediction": prediction}, 200
         
     except Exception as e:
         logger.error(f"Error during prediction: {str(e)}")
