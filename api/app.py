@@ -7,7 +7,7 @@ import pickle
 
 from model import *
 from logger import logger
-from schemas import *
+from schemas import PersonalityTraitResponseSchema, PersonalityInputSchema, ErrorResponseSchema
 from flask_cors import CORS
 
 # Instantiate the Flask application with OpenAPI
@@ -41,37 +41,65 @@ def docs():
     """
     return redirect("/openapi")
 
-# Route for forecast of personality traits
-@app.get(
-    "/personality_trait", 
-    tags=[personality_trait_tag],
-    responses={
-        "200": PersonalityTraitResponseSchema,
-        "400": ErrorResponseSchema,
-        "500": ErrorResponseSchema,
-    },
-)
-def get_personality_trait(form: PersonalityTraitSchema):
-    """
-    Forecasts personality traits based on user input.
 
-    :param form: User input data for personality trait prediction.
+def calculatePrediction(
+    timeSpentAlone, 
+    stageFear, 
+    socialEventAttendance, 
+    goingOutside, 
+    drainedAfterSocializing, 
+    friendsCircleSize, 
+    postFrequency
+):
+    """
+    Calculate the prediction based on the input features.
+    
+    :return: Predicted personality trait.
+    """
+    X_input = np.array([
+        timeSpentAlone, 
+        stageFear, 
+        socialEventAttendance, 
+        goingOutside, 
+        drainedAfterSocializing, 
+        friendsCircleSize, 
+        postFrequency
+    ]).reshape(1, -1)
+    
+    # Load the pre-trained model pipeline
+    model_path = "./machinelearning/models/et_personality_trait_pipeline.pkl"
+    with open(model_path, 'rb') as file:
+        pipeline = pickle.load(file)
+        
+    # predict the personality trait
+    prediction = int(pipeline.predict(X_input)[0])
+    
+    return prediction
+
+# Route for the personality trait prediction
+@app.post("/predict", tags=[personality_trait_tag])
+def predict_personality(body: PredictInputSchema):
+    """
+    Predicts the personality trait based on the input data.
+
+    :param body: Input data for personality trait prediction.
     :return: Predicted personality trait.
     """
     try:
-        # Log the received form data
-        logger.info(f"Received form data: {form}")
+        # Log the received input data
+        logger.info(f"Received input data: {body}")
 
-        name = form.name
-        timeSpentAlone = form.timeSpentAlone
-        stageFear = form.stageFear
-        socialEventAttendance = form.socialEventAttendance
-        goingOutside = form.goingOutside
-        drainedAfterSocializing = form.drainedAfterSocializing
-        friendsCircleSize = form.friendsCircleSize
-        postFrequency = form.postFrequency
+        # Extract features from the input data
+        timeSpentAlone = body.timeSpentAlone
+        stageFear = body.stageFear
+        socialEventAttendance = body.socialEventAttendance
+        goingOutside = body.goingOutside
+        drainedAfterSocializing = body.drainedAfterSocializing
+        friendsCircleSize = body.friendsCircleSize
+        postFrequency = body.postFrequency
         
-        X_input = np.array([
+        # Calculate the prediction
+        prediction = calculatePrediction(
             timeSpentAlone, 
             stageFear, 
             socialEventAttendance, 
@@ -79,31 +107,15 @@ def get_personality_trait(form: PersonalityTraitSchema):
             drainedAfterSocializing, 
             friendsCircleSize, 
             postFrequency
-        ]).reshape(1, -1)
+        )
         
-        # Log the input data for prediction
-        logger.info(f"Input data for prediction: {X_input}")
-        
-        # Load the pre-trained model pipeline
-        logger.info("Loading the personality trait prediction pipeline.")
-        
-        model_path = "./machinelearning/models/et_personality_trait_pipeline.pkl"
-        with open(model_path, 'rb') as file:
-            pipeline = pickle.load(file)
-            
-        # predict the personality trait
-        prediction = int(pipeline.predict(X_input)[0])
-               
         # Log the prediction result
         logger.info(f"Prediction result: {prediction}")
         
         return PersonalityTraitResponseSchema(
-            name=name,
             personalityTrait=prediction
         )
         
     except Exception as e:
         logger.error(f"Error during prediction: {str(e)}")
         return ErrorResponseSchema(message=f"Error during prediction: {str(e)}"), 500
-
-
