@@ -7,13 +7,13 @@
 function predictPersonality() {
   const data = {
     name: document.getElementById("newName").value,
-    time_spent_alone: document.getElementById("newTimeSpentAlone").value,
-    stage_fear: document.getElementById("newStageFear").value,
-    social_event_attendance: document.getElementById("newSocialEventAttendance").value,
-    going_outside: document.getElementById("newGoingOutside").value,
-    drained_after_socializing: document.getElementById("newDrainedAfterSocializing").value,
-    friends_circle_size: document.getElementById("newFriendsCircleSize").value,
-    post_frequency: document.getElementById("newPostFrequency").value
+    timeSpentAlone: parseInt(document.getElementById("newTimeSpentAlone").value),
+    stageFear: parseInt(document.getElementById("newStageFear").value),
+    socialEventAttendance: parseInt(document.getElementById("newSocialEventAttendance").value),
+    goingOutside: parseInt(document.getElementById("newGoingOutside").value),
+    drainedAfterSocializing: parseInt(document.getElementById("newDrainedAfterSocializing").value),
+    friendsCircleSize: parseInt(document.getElementById("newFriendsCircleSize").value),
+    postFrequency: parseInt(document.getElementById("newPostFrequency").value)
   };
 
   fetch("http://localhost:5000/predict", {
@@ -25,7 +25,7 @@ function predictPersonality() {
   })
     .then(response => response.json())
     .then(result => {
-      alert(`Prediction result: ${result.prediction}`);
+      alert(`Resultado da predição: ${result.prediction === 0 ? "Introvertido" : "Extrovertido"}`);
     })
     .catch(error => {
       console.error("Prediction error:", error);
