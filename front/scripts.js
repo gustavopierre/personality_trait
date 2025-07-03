@@ -5,23 +5,19 @@
 */
 
 function predictPersonality() {
-  const data = {
-    name: document.getElementById("newName").value,
-    timeSpentAlone: parseInt(document.getElementById("newTimeSpentAlone").value),
-    stageFear: parseInt(document.getElementById("newStageFear").value),
-    socialEventAttendance: parseInt(document.getElementById("newSocialEventAttendance").value),
-    goingOutside: parseInt(document.getElementById("newGoingOutside").value),
-    drainedAfterSocializing: parseInt(document.getElementById("newDrainedAfterSocializing").value),
-    friendsCircleSize: parseInt(document.getElementById("newFriendsCircleSize").value),
-    postFrequency: parseInt(document.getElementById("newPostFrequency").value)
-  };
+  const formData = new FormData();
+  formData.append('name', document.getElementById("newName").value);
+  formData.append('timeSpentAlone', document.getElementById("newTimeSpentAlone").value);
+  formData.append('stageFear', document.getElementById("newStageFear").value);
+  formData.append('socialEventAttendance', document.getElementById("newSocialEventAttendance").value);
+  formData.append('goingOutside', document.getElementById("newGoingOutside").value);
+  formData.append('drainedAfterSocializing', document.getElementById("newDrainedAfterSocializing").value);
+  formData.append('friendsCircleSize', document.getElementById("newFriendsCircleSize").value);
+  formData.append('postFrequency', document.getElementById("newPostFrequency").value);
 
   fetch("http://localhost:5000/predict", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
+    body: formData
   })
     .then(response => response.json())
     .then(result => {
