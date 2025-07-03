@@ -4,6 +4,7 @@ from urllib.parse import unquote
 import pandas as pd
 import numpy as np
 import pickle
+import os
 
 from model import *
 from logger import logger
@@ -65,9 +66,16 @@ def calculatePrediction(
         friendsCircleSize, 
         postFrequency
     ]).reshape(1, -1)
+        
+    model_path = "./machinelearning/models/et_personality_trait_pipeline.pkl"
+    
+    logger.info(f"Diretório de trabalho atual: {os.getcwd()}")
+    logger.info(f"Model path relativo: {model_path}")
+    logger.info(f"Model path absoluto: {os.path.abspath(model_path)}")
     
     # Load the pre-trained model pipeline
-    model_path = "./machinelearning/models/et_personality_trait_pipeline.pkl"
+    
+    logger.info(f"Tentando carregar modelo de: {model_path}")
     with open(model_path, 'rb') as file:
         pipeline = pickle.load(file)
         
@@ -78,25 +86,25 @@ def calculatePrediction(
 
 # Route for the personality trait prediction
 @app.post("/predict", tags=[personality_trait_tag])
-def predict_personality(form: PersonalityInputSchema):
+def predict_personality(body: PersonalityInputSchema):
     """
     Predicts the personality trait based on the input data.
 
-    :param form: Input data for personality trait prediction via form.
+    :param body: Input data for personality trait prediction.
     :return: Predicted personality trait.
     """
     try:
         # Log the received input data
-        logger.info(f"Received input data: {form}")
+        logger.info(f"Received input data: {body}")
 
         # Extract features from the input data
-        timeSpentAlone = form.timeSpentAlone
-        stageFear = form.stageFear
-        socialEventAttendance = form.socialEventAttendance
-        goingOutside = form.goingOutside
-        drainedAfterSocializing = form.drainedAfterSocializing
-        friendsCircleSize = form.friendsCircleSize
-        postFrequency = form.postFrequency
+        timeSpentAlone = body.timeSpentAlone
+        stageFear = body.stageFear
+        socialEventAttendance = body.socialEventAttendance
+        goingOutside = body.goingOutside
+        drainedAfterSocializing = body.drainedAfterSocializing
+        friendsCircleSize = body.friendsCircleSize
+        postFrequency = body.postFrequency
         
         # Calculate the prediction
         prediction = calculatePrediction(
@@ -112,11 +120,11 @@ def predict_personality(form: PersonalityInputSchema):
         # Log the prediction result
         logger.info(f"Prediction result: {prediction}")
         
-        # return PersonalityTraitResponseSchema(
-        #     prediction=prediction
-        # )
-        return {"prediction": prediction}, 200
+        return PersonalityTraitResponseSchema(
+            prediction=prediction
+        ).dict()
+        #return {"prediction": prediction}, 200
         
     except Exception as e:
         logger.error(f"Error during prediction: {str(e)}")
-        return ErrorResponseSchema(message=f"Error during prediction: {str(e)}"), 500
+        return ErrorResponseSchema(message=f"Error during prediction: {str(e)}").dict(), 500
