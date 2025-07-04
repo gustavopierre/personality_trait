@@ -10,3 +10,4 @@ pydantic
 numpy
 pickle-mixin
 python-dotenv
+pytest
