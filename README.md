@@ -12,7 +12,7 @@
 
 # Personality Trait
 ## Introduction
-This project is the MVP for the subject **Software Quality, Security and Intelligent Systems** in the posgraduation in **Software Engineering** at the Pontifical Catholic University of Rio de Janeiro. The goal is predict whether a person is introverted or extroverted based on their social behavior.<br>
+This project is the MVP for the Sprint **Software Quality, Security and Intelligent Systems** in the posgraduation in **Software Engineering** at the Pontifical Catholic University of Rio de Janeiro. The goal is predict whether a person is introverted or extroverted based on their social behavior.<br>
 
 ## Components
 The repository contains:
@@ -49,3 +49,9 @@ For the development mode, it is recommended to add the **--reload** parameter, w
 
 - To access the web interface, open:<br>
 [http://localhost:5000/](http://localhost:5000/)
+---
+## Tests
+Automated tests use PyTest to ensure that the model meets the established performance requirements. To run them, execute the following command in the **api** folder.
+```
+pytest -v .\test_modelos.py
+```
