@@ -64,3 +64,15 @@ def test_modelo_rf():
     print(f"\nAcurácia do modelo Random Forest: {acuracia_rf:f}")
     # Testando as métricas do Random Forest
     assert acuracia_rf >= 0.98
+
+# Método para testar o modelo de Support Vector Machine a partir do arquivo correspondente
+def test_modelo_svm():
+    # Importando o modelo de support vector machine
+    svm_path = './machinelearning/models/svm_personality_trait_pipeline.pkl'
+    modelo_svm = pipeline.carrega_pipeline(svm_path)
+
+    # Obtendo as métricas do Support Vector Machine
+    acuracia_svm = avaliador.avaliar(modelo_svm, X, y)
+    print(f"\nAcurácia do modelo Support Vector Machine: {acuracia_svm:f}")
+    # Testando as métricas do Support Vector Machine
+    assert acuracia_svm >= 0.98
