@@ -25,7 +25,7 @@ function predictPersonality() {
   })
     .then(response => response.json())
     .then(result => {
-      alert(`Resultado da predição: ${result.prediction === 0 ? "Introvertido" : "Extrovertido"}`);
+      alert(`Resultado da predição: ${result.prediction === 0 ? "Extrovert" : "Introvert"}`);
     })
     .catch(error => {
       console.error("Prediction error:", error);
