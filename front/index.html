@@ -26,14 +26,29 @@
      <!-- Opções para adicionar um novo item -->
      
     <section class="newItem">
-        <input type="text" id="newName" placeholder="Name">
-        <input type="text" id="newTimeSpentAlone" placeholder="Time Spent Alone">
+        <input type="text" id="newName" placeholder="Name" required>
+        <input type="number" id="newTimeSpentAlone" placeholder="Time Spent Alone" min="0" max="24" required>
+        <!--
         <input type="text" id="newStageFear" placeholder="Stage Fear">
-        <input type="text" id="newSocialEventAttendance" placeholder="Social Event Attendance">
-        <input type="text" id="newGoingOutside" placeholder="Going Outside">
+        -->
+        <select id="newStageFear" required>
+            <option disabled selected>Stage Fear</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select>
+        <input type="number" id="newSocialEventAttendance" placeholder="Social Event Attendance" min="0" required>
+        <input type="number" id="newGoingOutside" placeholder="Going Outside" min="0" required>
+        <!--
         <input type="text" id="newDrainedAfterSocializing" placeholder="Drained After Socializing">
-        <input type="text" id="newFriendsCircleSize" placeholder="Friends Circle Size">
-        <input type="text" id="newPostFrequency" placeholder="Post Frequency">
+        -->
+        <select id="newDrainedAfterSocializing" required>
+            <option disabled selected>Drained After Socializing</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select>
+
+        <input type="number" id="newFriendsCircleSize" placeholder="Friends Circle Size" min="0" required>
+        <input type="number" id="newPostFrequency" placeholder="Post Frequency" min="0" required>
         <button type="button" onclick="predictPersonality()" class="addBtn">Diagnose Personality Trait</button>
     </section> 
 
